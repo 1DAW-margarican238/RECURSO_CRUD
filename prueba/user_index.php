@@ -20,10 +20,12 @@ function getUsersMarkup(){
                 <div>
                     <a href="user_info.php?id='.$datos['id'].'">
                         <button>Ver</button>
-                    </a> 
+                    </a>   
                     <a href="user_edit.php?id='.$datos['id'].'">
                         <button>Editar</button>
-                    </a>   
+                    </a> 
+                      
+                
                     <a href="user_delete.php?id='.$datos['id'].'">
                       <button>Eliminar</button>
                     </a>  
