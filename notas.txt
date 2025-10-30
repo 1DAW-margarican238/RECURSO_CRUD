@@ -1,0 +1,10 @@
+zona de inicilzacion
+
+logica de negocio
+
+logica de presentacion
+
+
+//
+falta user edit
+user delete a media

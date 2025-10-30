@@ -4,12 +4,15 @@ function dump($var){
     echo '<pre>'.print_r($var,1).'</pre>';
 }
 
+
+
+
 function getUsersMarkup(){
     $output= '';
-
     $file = 'usuarios.csv';
     $archivo = fopen($file, "r");
     $keys = fgetcsv($archivo);
+
     while($fila = fgetcsv($archivo)){
         $datos = array_combine($keys, $fila);
         $output .='<div class= "usuariosContenedor">
@@ -39,7 +42,9 @@ function getUsersMarkup(){
     </div>';
    
     return $output;
+
 };
+
 
 
 ?>

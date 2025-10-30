@@ -2,9 +2,6 @@
 function getFormsMarkup(){
 
    $output = '<form action="'.editUser().'" method="post">
-    <label for="id">ID:</label>
-    <input type="text" id="id" name="id" required><br><br>
-
     <label for="nombre">Nombre:</label>
     <input type="text" id="nombre" name="nombre" required><br><br>
 
@@ -24,7 +21,7 @@ function getFormsMarkup(){
   
     <div>
         <a href="user_index.php" target="_blank">
-         <button>Volver al inciio</button>
+         <button>Volver al inicio</button>
         </a>  
     </div>';
     return $output; 
@@ -35,33 +32,35 @@ function getFormsMarkup(){
 
 function editUser(){
     if(!empty($_POST)){
-
-    
-    $texto ='id,nombre,email,rol,fecha';
     $file = 'usuarios.csv';
     $archivoLeer = fopen($file, "r");
     $keys = fgetcsv($archivoLeer);
     $idGuardado = $_GET['id'];
-    
+
+     echo "<pre>";
+        var_dump($texto);
+        echo "</pre>";
+
     while($fila = fgetcsv($archivoLeer)){
          $datos = array_combine($keys, $fila);
         if($datos['id'] == $idGuardado){
-            $texto .= $_GET['id'].','.$_POST['nombre'].','.$_POST['email'].','.$_POST['rol'].','.date("Y-m-d H:i:s");
+            $texto .= $_GET['id'].','.$_POST['nombre'].','.$_POST['email'].','.$_POST['rol'].','. $datos['fecha']."\n";
         } else {
-            $texto .= $datos['id'].','.$datos['nombre'].','.$datos['email'].','.$datos['rol'].','.date("Y-m-d H:i:s");
+            $texto .= $datos['id'].','.$datos['nombre'].','.$datos['email'].','.$datos['rol'].','.$datos['fecha']."\n";
         }
-    }
-    
-    $archivoEscribir = fopen($file, "w");
+    };
+    if(isset($_POST['submit'])){
+        $archivoEscribir = fopen($file, "w");
+        
         echo "<pre>";
         var_dump($texto);
         echo "</pre>";
 
         fwrite($archivoEscribir, $texto);
+    }
+   
 
     
-
-$formularioMarkup = getFormsMarkup();
 }
 }
 ?>
@@ -76,6 +75,7 @@ $formularioMarkup = getFormsMarkup();
 </head>
 <body>
     <?php
+    echo getFormsMarkup();
     echo editUser();
     ?>
 </body>

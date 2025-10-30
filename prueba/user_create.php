@@ -1,11 +1,12 @@
 <?php
+function dump($var){
+    echo '<pre>'.print_r($var,1).'</pre>';
+}
+
 
 function getFormsMarkup(){
 
    $output = '<form action="'.$_SERVER['PHP_SELF'].'" method="post">
-    <label for="id">ID:</label>
-    <input type="text" id="id" name="id" required><br><br>
-
     <label for="nombre">Nombre:</label>
     <input type="text" id="nombre" name="nombre" required><br><br>
 
@@ -25,29 +26,35 @@ function getFormsMarkup(){
   
     <div>
         <a href="user_index.php" target="_blank">
-         <button>Volver al inciio</button>
+         <button>Volver al inicio</button>
         </a>  
     </div>';
     return $output; 
      
 }
 
+function getInsercionID(){
+    $archivo = 'contID.csv';
+    $lastID = (int)file_get_contents($archivo);
+    $newID = $lastID+1 ;
+    file_put_contents($archivo, $newID);
+    return $newID;
+}
+
 
 function guardarUsers(){
-    echo getFormsMarkup();
     if(isset($_POST['submit'])){
         $usuario = array (
-            $_POST['id'],
+            $_POST['id'] = getInsercionID(),
             $_POST['nombre'],
             $_POST['email'],
             $_POST['rol'],
             date("Y-m-d H:i:s")
         );
-    
 
     $file = 'usuarios.csv';
     $f = fopen($file, 'a');
-    if ($f) {
+       
         echo "<pre>";
         var_dump($usuario);
         echo "</pre>";
@@ -55,11 +62,12 @@ function guardarUsers(){
         fputcsv($f, $usuario);
         fclose($f);
         echo "<p>Usuario guardado</p>";
-    } else {
-        echo "<p>Error al abrir el archivo</p>";
-    }
+
+        
     }
 }
+
+$prueba = guardarUsers();
 
 ?>
 
@@ -73,7 +81,9 @@ function guardarUsers(){
 </head>
 <body>
     <div class="formsContainer">
-        <?php  guardarUsers(); ?>
+        <?php  
+        echo getFormsMarkup();
+        $prueba; ?>
     </div>
 
 </body>

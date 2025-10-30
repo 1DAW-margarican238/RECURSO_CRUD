@@ -4,44 +4,60 @@ function dump($var){
     echo '<pre>'.print_r($var,1).'</pre>';
 }
 
-function getUsersMarkup(){
-    $output= '';
-
+function getUsuario(){
+    $usuarios = [];
+    // $archivo = fopen($file, "r");
+    // $keys = fgetcsv($archivo);
     $file = 'usuarios.csv';
-    $archivo = fopen($file, "r");
-    $keys = fgetcsv($archivo);
-    while($fila = fgetcsv($archivo)){
-        $datos = array_combine($keys, $fila);
-        $output .='<div class= "usuariosContenedor">
-                <div class = "usuarioContenedor">
-                <p> Nobre de usuario: '.$datos['nombre'].' </p> 
-                <p>E-mail: '.$datos['email'].'</p>
-                <p>Rol: '.$datos['rol'].' </p>
-                <div>
-                    <a href="user_info.php?id='.$datos['id'].'">
-                        <button>Ver</button>
-                    </a>   
-                    <a href="user_edit.php?id='.$datos['id'].'">
-                        <button>Editar</button>
-                    </a> 
-                      
-                
-                    <a href="user_delete.php?id='.$datos['id'].'">
-                      <button>Eliminar</button>
-                    </a>  
-                </div>
-            </div>';
-        
-    };
-    $output.='
-    <div>
-        <a href="user_create.php" target="_blank">
-         <button>Crear un nuevo usuario</button>
-        </a>  
-    </div>';
-   
-    return $output;
-};
+    if(($archivo=fopen($file,'r'))!== false){
+        while(($datos=fgetcsv($archivo))!== false){
+            $usuarios[]=$datos;
+        }
+        fclose($archivo);
+    }
+    return $usuarios;
+
+}
+
+
+function getUsuarioMarkup($usuarios){
+    $output ='';
+    $output .= '<table>
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Rol</th>
+        <th>Fecha</th>
+        <th>Acciones</th>
+    </tr>';
+foreach($usuarios as $fila){
+    $id = $fila[0];
+    $output .= '<tr>';
+    foreach($fila as $datos){
+        $output .= "<td>$datos</td>";
+    
+    }
+    $output .= "<td> <a href='user_info.php?id=$id'><button>Ver</button></a>
+    <a href='user_edit.php?id=$id'><button>Editar</button></a>
+    <a href='user_delete.php?id=$id'><button>Eliminar</button></a></td>";
+    
+    $output .= '</tr>';
+}
+
+$output.= "
+</table>
+<tr>
+<td> <a href='user_create.php?id=$id'><button>Crear</button></a></td>
+</tr>";
+
+return $output;
+
+}
+
+$datosCSV = getUsuario();
+
+$getUsuariosMarkup = getUsuarioMarkup($datosCSV);
 
 
 ?>
@@ -59,7 +75,8 @@ function getUsersMarkup(){
 </style>
 <body>
     <?php 
-    echo getUsersMarkup();
+    echo $getUsuariosMarkup;
     ?>
 </body>
 </html>
+
