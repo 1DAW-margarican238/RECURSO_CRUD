@@ -6,5 +6,3 @@ logica de presentacion
 
 
 //
-falta user edit
-user delete a media
