@@ -9,7 +9,7 @@
 
 <h1>Eliminar usuario</h1>
 
-<p>¿Quieres eliminar al usuario</p>
+<p>¿Quieres eliminar a <?php echo htmlspecialchars($usuario['nombre']); ?>?</p>
 
 <form method="post">
     <button type="submit" name="confirmar">Sí, eliminar</button>

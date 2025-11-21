@@ -11,7 +11,7 @@ $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
 if ($id !== false) {
     $db = conectarBD();
-    $usuario = getUserById($db, $id);
+    $usuario = getUserByIdShow($db, $id);
 } else {
     header("Location: ./index_user.php");
     exit;

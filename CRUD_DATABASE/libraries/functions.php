@@ -115,7 +115,21 @@ function getUserById($db, $id) {
     
 }
 
+function getUserByIdShow($db, $id) {
 
+    $get = $db->prepare("SELECT * FROM usuarios WHERE id = :id");
+    $get->bindParam(':id', $id, PDO::PARAM_INT);
+    $get->execute();
+
+    $usuario = $get->fetch(PDO::FETCH_ASSOC);
+    
+    if ($usuario) {
+        return $usuario;
+    } else {
+        return null;
+    }
+    
+}
 
 
 
@@ -132,7 +146,7 @@ function updateUser($db, $id, $nombre, $email, $rol) {
 function deleteUser($db, $id) {
     $delete = $db->prepare("DELETE FROM usuarios WHERE id = :id");
     $delete->bindParam(":id", $id, PDO::PARAM_INT);
-    return $delete->execute();
+    $delete->execute();
     
 }
 
