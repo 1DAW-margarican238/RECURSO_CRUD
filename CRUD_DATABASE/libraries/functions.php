@@ -83,19 +83,22 @@ if(isset($_POST['crear'])){
     $userData = filter_input_array(INPUT_POST,[
         'nombre' => FILTER_DEFAULT,
         'email' => FILTER_VALIDATE_EMAIL,
-        'rol' => FILTER_DEFAULT
+        'rol' => FILTER_DEFAULT,
+        'password' => FILTER_DEFAULT
     ]);
     
 
         // Usar prepared statement
-        $insert = $db->prepare("INSERT INTO usuarios (nombre, email, rol, fecha_alta) VALUES (?, ?, ?, NOW())");
+        $insert = $db->prepare("INSERT INTO usuarios (nombre, email, rol, fecha_alta, password) VALUES (?, ?, ?, NOW(),?)");
 
         return $insert->execute([
             $userData['nombre'],
             $userData['email'],
-            $userData['rol']
+            $userData['rol'],
+            $userData['password']
         ]);
 }
+
 }
 
  
@@ -150,6 +153,23 @@ function deleteUser($db, $id) {
     
 }
 
+
+
+function loginUser($db,$nombre,$password){
+    $output ="";
+
+    $get = $db->prepare("SELECT * FROM usuarios WHERE nombre = :nombre AND password = :password");
+    $get->bindParam(':nombre', $nombre, PDO::PARAM_INT);
+    $get->bindParam(':password', $password, PDO::PARAM_INT);
+    $get->execute();
+    $usuario = $get->fetch(PDO::FETCH_ASSOC);
+    if(isset($usuario)){
+        header("Location: ./index_user.php");
+    }else{
+         header("Location: ./login_create.php");
+    }
+      
+}
 
 
 

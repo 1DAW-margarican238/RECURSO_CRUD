@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <!-- Minified version -->
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
-    <title>Lista de usuarios</title>
-      <style>
+    <!-- Poner el style - está en los tpl -->
+
+    <style>
         body {
             font-family: "Inter", Arial, sans-serif;
             max-width: 900px;
@@ -39,10 +39,7 @@
         }
 
         input[type="text"],
-        input[type="email"],
-        input[type="rol"],
-        input[type="password"],
-        input[type="hidden"] {
+        input[type="password"]{
             width: 100%;
             padding: 10px;
             background: #1f1f1f;
@@ -90,21 +87,17 @@
             margin-top: 20px;
         }
     </style>
+    <title>Login</title>
 </head>
 <body>
-    <h1>Nuevo usuario</h1>
-    <?php if(isset($mensaje)&&!empty($mensaje)): ?>
-        <p><?php echo $mensaje; ?></p>
-    <?php endif; ?>
-    <form action="<?php echo $_SERVER['PHP_SELF'] ?>"method="post">
-        <label for="nombre">Nombre: </label><input id="nombre" type="text" placeholder="Nombre de usuario aquí" name="nombre">
-        <label for="email">Email: </label><input id="email" type="email" placeholder="Email de usuario aquí" name="email">
-        <label for="rol">Rol: </label><input id="rol" type="rol" placeholder="Rol del usuario" name="rol">
-        <label for="password">Password: </label><input id="password" type="text" placeholder="Contraseña" name="password">
-        <input type="submit" value="Crear" name="crear">
-        
-    </form>
-    <p><a href="./index_user.php">Volver a listado usuarios</a></p>
+    <h1>Login Usuario</h1>
+    <form action=" <?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+    <label for="nombre">Usuario:</label>
+        <input id="nombre" type="text" placeholder="Nombre de Usuario" name="nombre">
+    <label for="psw">Contraseña:</label>
+        <input id="psw" type="password" placeholder="Contraseña" name="psw">
+        <input type="submit" value="login" name="login">
 
+    </form>
 </body>
 </html>

@@ -104,7 +104,5 @@
         <input type="submit" value="Crear" name="crear">
         
     </form>
-    <p><a href="./index_user.php">Volver a listado usuarios</a></p>
-
 </body>
 </html>

@@ -8,8 +8,12 @@ boot();
 //Lógica de negocio
 $mensaje = '';
 $db = conectarBD();
-insertUser($db);
 
+if (isset($_POST['crear'])) {
+    insertUser($db);
+    header("Location: login.php");
+    exit;
+}
 
 
 
@@ -17,5 +21,5 @@ insertUser($db);
 
 //Lógica de presentación
 //Presenta el html a partir de los datos en el CSV
-include_once('./templates/create_users.tpl.php');
+include_once('./templates/login_create.tpl.php');
 ?>
