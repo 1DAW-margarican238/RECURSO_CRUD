@@ -156,17 +156,20 @@ function deleteUser($db, $id) {
 
 
 function loginUser($db,$nombre,$password){
-    $output ="";
-
-    $get = $db->prepare("SELECT * FROM usuarios WHERE nombre = :nombre AND password = :password");
-    $get->bindParam(':nombre', $nombre, PDO::PARAM_INT);
-    $get->bindParam(':password', $password, PDO::PARAM_INT);
+    $get = $db->prepare("
+    SELECT * FROM usuarios WHERE nombre = :nombre AND password = :password");
+    $get->bindParam(':nombre', $nombre);
+    $get->bindParam(':password', $password);
     $get->execute();
     $usuario = $get->fetch(PDO::FETCH_ASSOC);
-    if(isset($usuario)){
+    if($usuario){
+        $_SESSION['nombre'] = $usuario['nombre'];
+        $_SESSION['password'] = $usuario['password'];
+        $_SESSION['rol'] = $usuario['rol'];
         header("Location: ./index_user.php");
+
     }else{
-         header("Location: ./login_create.php");
+        header("Location: ./login_create.php");
     }
       
 }

@@ -91,7 +91,7 @@
 </head>
 <body>
     <h1>Login Usuario</h1>
-    <form action=" <?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+    <form action="login.php" method="post">
     <label for="nombre">Usuario:</label>
         <input id="nombre" type="text" placeholder="Nombre de Usuario" name="nombre">
     <label for="psw">Contraseña:</label>

@@ -1,16 +1,29 @@
 <?php
-
+session_start();
 include_once('./libraries/functions.php');
 
 //Inicialización
 boot();
-
+if(!isset($_SESSION['rol'])){
+    header('Location: ./login.php');
+    exit;
+}
 //Lógica de negocio
 //Obtenemos id de la querystring
 
 $db = conectarBD();
 $id = $_SERVER["REQUEST_METHOD"] === "GET" ? filter_input(INPUT_GET,'id', FILTER_VALIDATE_INT) : intval($_POST["id"]);
 $usuario = getUserById($db, $id);
+
+if(!$usuario){
+     header('Location: ./index_user.php');
+    exit;
+}
+if($_SESSION['rol']=='guest'){
+    header('Location: ./index_user.php');
+    exit;
+}
+
 
 if ($id !== false) {
     

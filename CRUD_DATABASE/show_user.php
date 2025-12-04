@@ -1,9 +1,14 @@
 <?php
-
+session_start();
 include_once('libraries/functions.php');
 
 // Inicialización
 boot();
+if(!isset($_SESSION['rol'])){
+    header('Location: ./login.php');
+    exit;
+}
+
 
 // Lógica de negocio
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);  
@@ -14,6 +19,11 @@ if ($id !== false) {
     $usuario = getUserByIdShow($db, $id);
 } else {
     header("Location: ./index_user.php");
+    exit;
+}
+
+if(!$usuario){
+     header('Location: ./index_user.php');
     exit;
 }
 

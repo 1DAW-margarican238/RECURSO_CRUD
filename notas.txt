@@ -1,8 +1,0 @@
-zona de inicilzacion
-
-logica de negocio
-
-logica de presentacion
-
-
-//

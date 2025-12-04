@@ -92,16 +92,25 @@
             <td><?php echo htmlspecialchars($usuario['email']); ?></td>
             <td><?php echo htmlspecialchars(ucfirst($usuario['rol'])); ?></td>
             <td>
+                
                 <a href="show_user.php?id=<?php echo $usuario['id']; ?>">Ver</a>
+                <?php if($_SESSION['rol']== 'admin' || $_SESSION['rol']== 'editor'):?>
                 <a href="edit_user.php?id=<?php echo $usuario['id']; ?>">Editar</a>
+                <?php endif ?>
+                <?php if($_SESSION['rol']== 'admin'):?>
                 <a href="delete_user.php?id=<?php echo $usuario['id']; ?>">Eliminar</a>
+                <?php endif ?>
             </td>
         </tr>
         <?php endforeach; ?>
     </table>
-
+    <?php if($_SESSION['rol']== 'admin'):?>
     <p>
         <a href="create_user.php">NUEVO USUARIO</a>
+    </p>
+    <?php endif ?>
+    <p>
+        <a href="logout.php">Logout</a>
     </p>
 </body>
 </html>

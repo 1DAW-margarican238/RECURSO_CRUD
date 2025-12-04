@@ -1,10 +1,18 @@
 <?php
-
+session_start();
 include_once('./libraries/functions.php');
 
 //Inicialización
 boot();
+if(!isset($_SESSION['rol'])){
+    header('Location: ./login.php');
+    exit;
+}
 
+if($_SESSION['rol']!=='admin'){
+    header('Location: ./index_user.php');
+    exit;
+}
 //Lógica de negocio
 $mensaje = '';
 $db = conectarBD();
